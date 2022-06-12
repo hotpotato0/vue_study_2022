@@ -1,0 +1,22 @@
+* axios
+뷰에서 권고하는 HTTP 통신 라이브러리
+Promise 기반의 HTTP 통신 라이브러리. 상대적으로 다른 HTTP 통신 라이브러리들에 비해 문서화가 잘 되어있고 API가 다양함
+
+* 자바스크립트의 비동기 처리 패턴
+  1. callback
+  2. promise
+  3. promise + generator
+  4. async & await
+
+* 뷰의 템플릿 문법
+뷰로 화면을 조작하는 방법
+데이터 바인딩& 디렉티브
+
+- 데이터 바인딩
+콧수염 괄호
+<div>{{ message }}</div>
+
+- 디렉티브
+<div>
+    Hello <span v-if="show">Vue.js</span>
+</div>

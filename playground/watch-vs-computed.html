@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{ num }}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                num: 10
+            },
+            // 벨리데이션이나 간단한 텍스트 연산
+            computed: {
+                doubleNum: function () {
+                    return this.num * 2;
+                }
+            },
+            // 매번 실행하기 무거운 로직(데이터 요청)
+            // 값의 변화를 캐치한다. 
+            watch: {
+                num: function (newValue, oldValue) {
+                    this.fetchUserByNumber(newValue);
+                }
+            },
+            methods: {
+                fetchUserByNumber: function (num) {
+                    // console.log(num);
+                    // axios 없.. 다고 에러뜨는데..
+                    axios.get(num);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

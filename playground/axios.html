@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="getData">get user</button>
+        <div>{{ users }}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- git hub에 cdn 검색 후 가져와도 됨 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                users: []
+            },
+            methods: {
+                getData: function() {
+                    var vm= this;
+                    // 테스트 해볼수 있는 샘플데이터 
+                    axios.get("https://jsonplaceholder.typicode.com/users/")
+                    .then(function(response){
+                        console.log(response.data);
+                        // 비동기처리후 실행 context가 바뀌면서 this의 대상이 바뀜.
+                        vm.users = response.data;
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    })
+                }
+            }
+
+        })
+
+    </script>
+
+</body>
+</html>
