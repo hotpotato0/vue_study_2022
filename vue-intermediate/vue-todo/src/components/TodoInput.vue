@@ -6,14 +6,26 @@
         <span class="addContainer" v-on:click="addTodo">
             <i class="addBtn fas fa-plus" aria-hidden="true"></i>
         </span>
+        <Modal v-if="showModal" @close="showModal = false">
+            <h3 slot="header">
+                <!-- AlertModal.vue 에 있는 header에 있는 내용을 재정의 할 수 있다 -->
+                경고!
+                <i class="closeModalBtn fas fa-times" @click="showModal = false"></i>
+            </h3>
+            <div slot="body">
+                아무것도 입력하지 않으셨습니다.
+            </div>
+        </Modal>
     </div>
 </template>
 <script>
+import AlertModal from './common/AlertModal.vue'
 export default {
     data: function() {
         return {
             // 이 부분이 v-model
-            newTodoItem: "" 
+            newTodoItem: "" ,
+            showModal: false
         }
     },
     methods: {
@@ -34,12 +46,16 @@ export default {
                 // this.#emit('이벤트이름',인자1,인자1...)
                 this.$emit('addTodoItem',this.newTodoItem);
                 this.clearInput();
+            }  else {
+                this.showModal = !this.showModal;
             }
         },
         clearInput: function() {
             this.newTodoItem = '';
         }
-
+    }, 
+    components: {
+        Modal: AlertModal
     }
 }
 </script>
@@ -68,5 +84,8 @@ input:focus {
 .addBtn {
     color: white;
     vertical-align: middle;
+}
+.closeModalBtn {
+    color: #42b983;
 }
 </style>

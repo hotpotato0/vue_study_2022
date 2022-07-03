@@ -1,6 +1,6 @@
 <template>
-    <section>
-        <ul>
+    <div>
+        <transition-group name="list" tag="ul">
             <!-- <li v-for="todoItem in todoItems" v-bind:key="todoItem" class="shadow"> -->
             <li v-for="(todoItem, index) in propsdata" class="shadow" v-bind:key="todoItem.item">
                 <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
@@ -10,8 +10,8 @@
                     <i class="removeBtn fas fa-trash-alt"></i>
                 </span>
             </li>
-        </ul>
-    </section>
+        </transition-group>
+    </div>
 </template>
 <script>
 export default {
@@ -62,5 +62,14 @@ li {
 .removeBtn {
     margin-left: auto;
     color: #de4343;
+}
+
+/* 리스트아이템 트랜잭션 추가 */
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
