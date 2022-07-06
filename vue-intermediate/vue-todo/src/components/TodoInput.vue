@@ -22,8 +22,8 @@ export default {
       // console.log(this.newTodoItem);
       // 저장하는 로직 수행 후 비우면 됨
       if( this.newTodoItem !== ''){
-        var obj = {completed: false, item: this.newTodoItem};
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        // this.#emit('이벤트 이름', 인자1, 인자2, ...);
+        this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
         // this.newTodoItem = '';
       }
