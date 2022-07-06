@@ -1,9 +1,9 @@
 <template>
   <div>
     <ul>
-        <li v-for="{todoItem, index} in todoItems" v-bind:key="todoItem" class="shadow">
-            <i class="checkBtn fas fa-check" v-on:click="toggleComplete"></i>
-            {{todoItem}}
+        <li v-for="{todoItem, index} in propsdata" v-bind:key="todoItem.item" class="shadow">
+            <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
+            {{todoItem.item}}
             <span class="removeBtn" v-on:click="removeTodo(todoItem,index)">
                 <i class="fas fa-trash-alt"></i>
             </span>
@@ -14,32 +14,15 @@
 
 <script>
 export default {
-    data: function() {
-        return {
-            todoItems: []
-        }
-    },
+    props: ['propsdata'],
     methods: {
         removeTodo: function(todoItem, index) {
-            console.log("지우기");
-            console.log(todoItem);
-            console.log(index);
-            localStorage.removeItem(todoItem);
-            this.todoItems.splice(index,1);
+            this.$emit('removeItem',todoItem,index);
         },
-        toggleComplete: function() {
-
+        toggleComplete: function(todoItem, index) {
+          this.$emit('toggleItem',todoItem, index);
         }
     },
-    created: function(){
-        console.log('created');
-
-        if( localStorage.length > 0) {
-            for(var i=0; i< localStorage.length; i++){
-                this.todoItems.push(localStorage.key(i));
-            }
-        }
-    }
 }
 </script>
 

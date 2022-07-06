@@ -4,14 +4,23 @@
     <span class="addContainer">
         <i class="fas fa-plus addBtn" v-on:click="addTodo"></i>
     </span>
+
+    <alert-modal v-if="showModal" @close="showModal = false">
+       <template v-slot:header>
+            custom header
+       </template>
+    </alert-modal>
   </div>
 </template>
 
 <script>
+
+import AlertModal from './common/AlertModal.vue'
 export default {
     data: function(){
         return{
-            newTodoItem: ""
+            newTodoItem: "",
+            showModal: false
         }
     },
     methods: {
@@ -19,15 +28,19 @@ export default {
             console.log(this.newTodoItem);
             //저장
             if (this.newTodoItem !==''){
-                var obj ={completed:false, item: this.newTodoItem};
-                localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
-
+                this.$emit('addTodoItem',this.newTodoItem);
                 this.clearInput();
+            } else {
+                // alert("type sth");
+                this.showModal = !this.showModal;
             }
         },
         clearInput: function() {
             this.newTodoItem = '';
         }
+    },
+    components: {
+        AlertModal: AlertModal
     }
 }
 </script>
