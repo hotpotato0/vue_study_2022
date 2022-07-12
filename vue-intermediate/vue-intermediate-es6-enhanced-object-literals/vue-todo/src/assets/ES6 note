@@ -1,0 +1,155 @@
+Vue.js ES6
+기존의 자바스크립트랑은 다른 문법을 사용중
+
+ES6의 여러가지 문법 중 Vue.js 코딩을 간편하게 해주는 문법 학습
+Todo 웹을 간단하게 바꿀수 있는 문법 학습:const&let, Arrow Function.... (Enhanced Object Literals, Modules)
+
+설명할건  const&let
+
+//만들었던 웹을 ES6로 개선하면서 체크해보기
+
+ES6란
+ECMAScript 2015와 동일한 용어
+최신 Front-end Framework인 React,Angular, Vue에서 권고하는 형식임
+ES5에 비해 문법이 간결해져서 익숙해지면 코딩을 더 편하게 할 수 있다.
+
+Babel
+https://babeljs.io/  :자바스크립트로 결과물을 만들어주는 컴파일러이다. 
+웹사이트를 만드는 프론트엔드는 아주 빠르게 변화하고 있는데 
+*최신 브라우저에서  babel로 자바스크립트로 변환(Transpiling)해주는것이다.
+ES6-> ES5로 변화
+
+//
+
+const&let 
+새로운 변수 선언 방식
+
+블록단위 {}로 변수의 범위가 제한되었음 
+(그냥 이게 이번 강의 핵심임)
+const:한번 선언한 값에 대해서 변경할 수 없음(상수개념)
+let:한번 선언한 값에 대해서 다시 선언할 수 없음
+
+const 이미지를 확인해주세요
+ 기존 const 라는 개념을 도입하면서 한번선언하면 끝나게끔. (값이 재할당 안되게끔)
+ 설정됨.
+
+ let 이미지를 확인해주세요
+ let으로 변수를 선언하고 (10) 오류는 웹 닫고 다시해봄
+ 다시 lat 으로 변수선언하면(20)오류가 납니다. 이미 값이 선언되어있다고 나옴.
+
+
+
+
+ES5특징 변수의 Scope
+기존 (ES5)자바스크립트는 {}에 상관없이 스코프가 설정됨
+
+var sum = 0;
+for (var i = 1; i <= 5; i++) {
+    sum = sum + i ;
+}
+console.log(sum); //15
+console.log(i); //6
+
+//for 문에서 var 선언 후 1-5까지 돌아서 console.log(i) 접근이 안되어야 하는데 접근이 된다
+//for 문 안에서 var i 가 전역변수로 잡혀서 접근이 된다
+
+ES5특징 Hoisting
+Hoisting 이란 선언한 함수와 변수를 해석기가 가장 상단에 있는것처럼 인식한다.
+js해석기는 코드의 라인 순서와 관계 없이 함수선언식과 변수를 위한 메모리 공간을 
+먼저 확보한다.
+따라서, Function a() 와 var 는 코드의 최상단으로 끌어 올려진 것(Hoisted)처럼 보임
+
+function willBeOveridden() {
+    return 10;
+}
+willBeOveridden(); //5
+function willBeOveridden() {
+    return 5;
+}
+
+//function으로 willBeOveridden 호출시 호출값이 10이 아니라 5를 호출하게된다 
+
+
+
+(이 코드를 실행시 자바스크립트 해석기가 어떻게 코드순서를 재조정할까)
+
+var sum = 5;
+sum = sum + i;
+
+function sumAllNumbers() {
+    //...
+}
+var i = 10;
+
+
+//자바스크립트 해석기에 돌려보라 해서 돌려보았는데 선생님이 원한 결과와는 다른 결과가 나왔다..
+<-
+(이미지 첨부되어있음 ..버전때문인가?)
+
+
+
+ 선생님이 바란 결과 하단
+
+
+//함수 선언식과 변수 선언을 hoisting 
+//자바스크립트 해석기는 function 이랑 sum 을 위로 올림
+var sum;
+function sumAllNumbers() {
+    // ...
+}
+var i;
+
+//그 후 변수 대입 및 할당
+
+sum = 5;
+sum = sum + i;
+i = 10;
+
+
+<-캡쳐 참고 ES6 -{}단위로 변수의 범위가 제한됨
+
+let sum = 0;
+for (let i = 1; i <= 5; i++) {
+    sum = sum + i;
+}
+console.log(sum); //10
+console.log(i); //
+
+
+ES6-const 로 지정한 값 변경 불가능
+const:한번 지정하면 변경이 불가능!
+
+const a = 10;
+a = 20;
+
+//하지만,객체나 배열의 내부는 변경할 수 있다.
+const a ={};
+a. num = 10;
+console.log(a); //{num: 10}
+
+const a = [];
+a.push(20);
+console.log(a); //[20]
+
+//<-캡처 ES6-let 선언한 값에 대해서 다시 선언 불가능
+
+let a = 10;
+let a = 20; //에러메세지
+
+ES6-const,let
+function f() {
+    {
+        let x;
+        {
+            //새로운 블록안에 새로운 x의 스코프가 생김 충돌이 안남
+            const x = "sneaky"
+            x = "foo"; //위에 이미 const로 x를 선언했으므로 다시 값을 대입시 에러발생
+        } //블록!
+        //이전블록 범위로 돌아왔기 때문에 'let x'에 해당하는 메모리에 값을 대입
+        x = "bar";
+        let x = "inner"; //위에 이미 const로 x를 선언했으므로 다시 값을 대입시 에러발생
+    }
+}
+
+*ES6를 알려주는 의의 자체가 어렵지 않다 가 주 목적이었음.
+
