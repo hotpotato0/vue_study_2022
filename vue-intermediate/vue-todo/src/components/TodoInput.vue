@@ -7,18 +7,35 @@
       <i class="fas fa-plus addBtn"></i>
 <!--      <i icon="fa-solid fa-plus addBtn" />-->
     </span>
+    <Modal v-if="showModal" @close="showModal = false">
+<!--      <custom v-slot="header">-->
+        <span>
+        경고
+        <i class="closeModalBtn fa fa-times"
+           aria-hidden="true"
+           @click="showModal = false">
+        </i>
+<!--      </custom>-->
+      </span>
+      <span>
+        할 일을 입력하세요.
+<!--      <p slot="body">할 일을 입력하세요.</p>-->
+        </span>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/CustomModal.vue'
 export default {
-  data: function () {
+  data() {
     return{
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false
     }
   },
   methods: {
-    addTodo: function () {
+    addTodo() {
       // console.log(this.newTodoItem);
       // 저장하는 로직 수행 후 비우면 됨
       if( this.newTodoItem !== ''){
@@ -26,13 +43,17 @@ export default {
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
         // this.newTodoItem = '';
+      } else{
+        this.showModal = !this.showModal;
       }
     },
-    clearInput: function () {
+    clearInput() {
       this.newTodoItem = '';
 
     }
-
+  },
+  components: {
+    Modal
   }
 }
 </script>

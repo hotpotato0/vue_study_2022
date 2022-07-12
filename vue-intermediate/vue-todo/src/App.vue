@@ -19,37 +19,37 @@ import TodoFooter from './components/TodoFooter.vue'
 
 
 export default {
-  data: function () {
+  data() {
     return {
       todoItems: []
     }
   },
   methods: {
-    removeOneItem: function (todoItem, index) {
+    removeOneItem (todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
     },
-    addOneItem: function (todoItem) {
-      var obj = {completed: false, item: todoItem};
+    addOneItem (todoItem) {
+      const obj = {completed: false, item: todoItem};
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
-    toggleOneItem: function (todoItem, index) {
+    toggleOneItem (todoItem, index) {
       // console.log(todoItem, index);
       // todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem))
     },
-    clearAllItems: function () {
+    clearAllItems () {
       localStorage.clear();
       this.todoItems = [];
     }
   },
-  created: function () {
+  created() {
     // console.log('created');
     if(localStorage.length > 0){
-      for(var i = 0 ; i < localStorage.length ; i++){
+      for(let i = 0 ; i < localStorage.length ; i++){
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
             // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
           this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
@@ -60,10 +60,10 @@ export default {
   },
   components: {
     // 컴포넌트 태그명 : 컴포넌트 내용
-    'TodoHeader': TodoHeader,
-    'TodoInput': TodoInput,
-    'TodoList': TodoList,
-    'TodoFooter': TodoFooter,
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter,
   }
 }
 </script>

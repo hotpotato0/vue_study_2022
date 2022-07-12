@@ -53,7 +53,7 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter
-  }  
+  }
 }
 </script>
 
