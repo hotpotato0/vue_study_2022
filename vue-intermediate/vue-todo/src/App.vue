@@ -2,10 +2,11 @@
   <div id="app">
     <TodoHeader></TodoHeader>
 <!--    <TodoInput v-on:하위 컴포넌트에서 발생시킨 이벤트 이름="현재 컴포넌트의 method명"></TodoInput>-->
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
+<!--    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>-->
+    <TodoInput></TodoInput>
 <!--    <TodoList v-bind:내려보낼 프롭스 속성 이름="현재 위치의 컴포넌트 데이터 속성"></TodoList>-->
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
-    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 
 </template>
@@ -15,8 +16,6 @@ import TodoHeader from './components/TodoHeader.vue'
 import TodoInput from './components/TodoInput.vue'
 import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
-
-
 
 export default {
   data() {
@@ -29,11 +28,11 @@ export default {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
     },
-    addOneItem (todoItem) {
-      const obj = {completed: false, item: todoItem};
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
+    // addOneItem (todoItem) {
+    //   const obj = {completed: false, item: todoItem};
+    //   localStorage.setItem(todoItem, JSON.stringify(obj));
+    //   this.todoItems.push(obj);
+    // },
     toggleOneItem (todoItem, index) {
       // console.log(todoItem, index);
       // todoItem.completed = !todoItem.completed;
@@ -46,18 +45,18 @@ export default {
       this.todoItems = [];
     }
   },
-  created() {
-    // console.log('created');
-    if(localStorage.length > 0){
-      for(let i = 0 ; i < localStorage.length ; i++){
-        if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
-            // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
-          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-        // localStorage.getItem(localStorage.key(i));
-        // console.log(localStorage.key(i));
-      }
-    }
-  },
+  // created() {
+  //   // console.log('created');
+  //   if(localStorage.length > 0){
+  //     for(let i = 0 ; i < localStorage.length ; i++){
+  //       if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
+  //           // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
+  //         this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+  //       // localStorage.getItem(localStorage.key(i));
+  //       // console.log(localStorage.key(i));
+  //     }
+  //   }
+  // },
   components: {
     // 컴포넌트 태그명 : 컴포넌트 내용
     TodoHeader,
