@@ -43,7 +43,7 @@ export default {
         // this.$emit('addTodoItem', this.newTodoItem);
         // const text = this.newTodoItem.trim();
         // this.$store.commit('addTodoItem', text);
-        this.$store.commit('addTodoItem', this.newTodoItem);
+        this.$store.commit('addOneItem', this.newTodoItem);
         // this.$store.commit('addTodoItem');
         this.clearInput();
         // this.newTodoItem = '';
